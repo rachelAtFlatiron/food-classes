@@ -49,7 +49,6 @@ class Ingredient
 
     def initialize(food = nil)
         @food = food 
-        @recipe = nil
     end 
 end 
 #users
@@ -80,5 +79,10 @@ pasta.make_ingredient('basil')
 cake.make_ingredient('sugar')
 cake.make_ingredient('berry')
 cake.make_ingredient('frosting')
+
+tom.recipes.length #2
+tom.recipes[0].ingredients.length #4
+tom.recipes[0].ingredients[0].food #noods
+#note there is no way to directly access an ingredient, you must find an ingredient through a recipe
 
 binding.pry
