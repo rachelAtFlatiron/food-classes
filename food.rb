@@ -1,43 +1,45 @@
 require 'pry'
 
-#Recipes belongs to a user, has many ingredients
+#Recipes 
 class Recipe 
     attr_accessor :title, :user, :recipes, :ingredients
 
-    @@recipes = []
+    @@recipes = [] #class variable that holds all instances of recipes
     def initialize(title)
         @title = title 
-        @user = nil
+        @user = nil #to be set to an instance of User
         @ingredients = []
         @@recipes << self 
     end 
 
+    #returns all instances of recipe
     def self.all
         @@recipes 
     end 
 
+    #adds a new ingredient instance to recipe
     def make_ingredient(food)
-        new_ingredient = Ingredient.new(food)
-        self.ingredients << new_ingredient
+        new_ingredient = Ingredient.new(food) #create instance of ingredient
+        self.ingredients << new_ingredient #add to ingredient list of current recipe instance
     end 
-
-    
 end 
 
-#User has many recipes has many ingredients
+#User 
 class User 
     attr_accessor :name, :users
 
-    @@users = []
+    @@users = [] #class variable for all users ever created
     def initialize(name)
         @name = name 
-        @@users << self
+        @@users << self #include newly made instances in global list
     end 
 
+    #return all user instances ever created
     def self.all 
         @@users 
     end 
 
+    #return recipes made by specific user 
     def recipes 
         Recipe.all.filter { |recipe| recipe.user == self }
     end 
@@ -52,6 +54,7 @@ class Ingredient
         @recipe = nil
     end 
 end 
+
 #users
 sophie = User.new('sophie') #<User:0x000000015b9d7068 @name="sophie">
 tom = User.new('tom') #<User:0x000000015b9d7018 @name="tom">
@@ -80,5 +83,16 @@ pasta.make_ingredient('basil')
 cake.make_ingredient('sugar')
 cake.make_ingredient('berry')
 cake.make_ingredient('frosting')
+
+#examples
+sophie.recipes #returns an array with one instance of recipe for bread
+tom.recipes #returns an array with two instances of recipe - one for pasta, one for cake
+tom.recipes.length #2
+tom.recipes[0].ingredients.length #4
+tom.recipes[0].ingredients[0].food #noodles
+sophie.recipes #returns an array of recipe instances
+bread.ingredients #returns an array of ingredient instances
+bread.user #returns instance of user sophie
+bread.user.name #sophie
 
 binding.pry
