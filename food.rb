@@ -1,56 +1,21 @@
 require 'pry'
 
-#Recipes belongs to a user, has many ingredients
+#Recipes
 class Recipe 
-    attr_accessor :title, :user, :recipes, :ingredients
 
-    @@recipes = []
-    def initialize(title)
-        @title = title 
-        @user = nil
-        @ingredients = []
-        @@recipes << self 
-    end 
+end 
 
-    def self.all
-        @@recipes 
-    end 
+#User
+class User 
+   
+end 
 
-    def make_ingredient(food)
-        new_ingredient = Ingredient.new(food)
-        self.ingredients << new_ingredient
-    end 
-
+#Ingredients
+class Ingredient 
     
 end 
 
-#User has many recipes has many ingredients
-class User 
-    attr_accessor :name, :users
 
-    @@users = []
-    def initialize(name)
-        @name = name 
-        @@users << self
-    end 
-
-    def self.all 
-        @@users 
-    end 
-
-    def recipes 
-        Recipe.all.filter { |recipe| recipe.user == self }
-    end 
-end 
-
-#Ingredients belongs to a recipe, belongs to a user
-class Ingredient 
-    attr_accessor :food, :recipe 
-
-    def initialize(food = nil)
-        @food = food 
-    end 
-end 
 #users
 sophie = User.new('sophie') #<User:0x000000015b9d7068 @name="sophie">
 tom = User.new('tom') #<User:0x000000015b9d7018 @name="tom">
